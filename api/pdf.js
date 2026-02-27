@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ 
         success: false,
         error: 'URL parameter is required',
-        usage: 'GET /pdf?url=YOUR_ENCODED_URL'
+        usage: 'GET /pdf?url=https://cwmediabkt99.crwilladmin.com/92013a99927c4842b0a70fbd6f064a95:crwilladmin/class-attachment/6952111b97606_10_13th_class_JM_28_dec_2025.pdf'
       });
     }
     
