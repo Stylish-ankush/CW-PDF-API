@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs20.x",
+      "memory": 3008,
+      "maxDuration": 60
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/pdf",
@@ -15,12 +16,5 @@
       "src": "/pdf",
       "dest": "/api/pdf.js"
     }
-  ],
-  "functions": {
-    "api/**/*.js": {
-      "memory": 3008,
-      "maxDuration": 60,
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
