@@ -64,6 +64,7 @@ module.exports = async (req, res) => {
     
     console.log(`[PDF-API] Processing: ${targetUrl.substring(0, 100)}`);
     
+    // Try direct download first
     try {
       const pdfBuffer = await downloadFile(targetUrl);
       const isPDF = pdfBuffer.slice(0, 4).toString('utf8') === '%PDF';
@@ -76,16 +77,39 @@ module.exports = async (req, res) => {
         return res.status(200).send(pdfBuffer);
       }
     } catch (e) {
-      console.log(`[PDF-API] Direct download failed, using Puppeteer`);
+      console.log(`[PDF-API] Direct download failed, using Puppeteer: ${e.message}`);
     }
     
-    browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
+    // Launch Puppeteer with proper chromium args
+    console.log('[PDF-API] Launching Puppeteer...');
+    
+    const launchArgs = {
+      headless: true,
       ignoreHTTPSErrors: true,
-    });
+    };
+    
+    // Add chromium args if available, otherwise use fallback
+    if (chromium.args && Array.isArray(chromium.args) && chromium.args.length > 0) {
+      launchArgs.args = chromium.args;
+    } else {
+      console.log('[PDF-API] Using fallback chromium args');
+      launchArgs.args = [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+      ];
+    }
+    
+    if (chromium.executablePath) {
+      launchArgs.executablePath = await chromium.executablePath();
+    }
+    
+    if (chromium.defaultViewport !== undefined) {
+      launchArgs.defaultViewport = chromium.defaultViewport;
+    }
+    
+    browser = await puppeteer.launch(launchArgs);
     
     const page = await browser.newPage();
     
@@ -121,6 +145,7 @@ module.exports = async (req, res) => {
     
   } catch (error) {
     console.error(`[PDF-API] ❌ Error: ${error.message}`);
+    console.error(error.stack);
     
     let statusCode = 500;
     if (error.message.includes('ENOTFOUND') || error.message.includes('ERR_NAME_NOT_RESOLVED')) {
