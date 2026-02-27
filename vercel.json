@@ -10,10 +10,12 @@
     {
       "src": "/pdf",
       "dest": "/api/pdf.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/pdf.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  }
 }
