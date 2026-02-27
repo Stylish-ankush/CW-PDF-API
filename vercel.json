@@ -8,12 +8,19 @@
   ],
   "routes": [
     {
-      "src": "/pdf",
+      "src": "/api/pdf",
       "dest": "/api/pdf.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/pdf",
       "dest": "/api/pdf.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 3008,
+      "maxDuration": 60,
+      "runtime": "nodejs20.x"
+    }
+  }
 }
