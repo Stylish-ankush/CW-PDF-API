@@ -24,5 +24,11 @@
       "src": "/bot",
       "dest": "/api/bot.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  }
 }
