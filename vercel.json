@@ -15,6 +15,14 @@
     {
       "src": "/pdf",
       "dest": "/api/pdf.js"
+    },
+    {
+      "src": "/api/bot",
+      "dest": "/api/bot.js"
+    },
+    {
+      "src": "/bot",
+      "dest": "/api/bot.js"
     }
   ]
 }

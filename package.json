@@ -1,8 +1,12 @@
 {
-  "name": "pdf-proxy-api",
+  "name": "pdf-proxy-bot",
   "version": "1.0.0",
+  "description": "Telegram bot + Vercel API to download and send PDFs",
   "engines": {
     "node": "20.x"
+  },
+  "scripts": {
+    "setup-webhook": "node api/setup-webhook.js"
   },
   "dependencies": {
     "puppeteer-core": "^21.0.0",
