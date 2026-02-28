@@ -9,7 +9,7 @@
     "setup-webhook": "node api/setup-webhook.js"
   },
   "dependencies": {
-    "puppeteer-core": "^21.0.0",
-    "@sparticuz/chromium": "^119.0.0"
+    "@sparticuz/chromium": "^123.0.1",
+    "puppeteer-core": "^22.6.5"
   }
 }
